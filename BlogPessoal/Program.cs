@@ -1,8 +1,13 @@
+using BlogPessoal.Config;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
+
+app.UseSwaggerConfiguration();
 
 app.UseHttpsRedirection();
 
