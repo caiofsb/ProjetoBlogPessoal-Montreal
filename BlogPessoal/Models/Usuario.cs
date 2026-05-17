@@ -29,4 +29,6 @@ public class Usuario
     [Required(ErrorMessage = "O tipo de usuário é obrigatório.")]
     [StringLength(30, ErrorMessage = "O tipo deve ter no máximo 30 caracteres.")]
     public string Tipo { get; set; } = "NORMAL";
+
+    public ICollection<Postagem> Postagens { get; set; } = new List<Postagem>();
 }

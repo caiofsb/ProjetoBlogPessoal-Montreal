@@ -27,5 +27,9 @@ public class Postagem
 
     public long UsuarioId { get; set; }
 
+    public Usuario? Usuario { get; set; }
+
     public long TemaId { get; set; }
+
+    public Tema? Tema { get; set; }
 }
