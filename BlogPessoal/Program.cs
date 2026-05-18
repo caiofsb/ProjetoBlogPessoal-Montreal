@@ -1,5 +1,6 @@
 using BlogPessoal.Config;
 using BlogPessoal.Data;
+using BlogPessoal.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
 });
+
+builder.Services.AddScoped<ITemaRepository, TemaRepository>();
 
 var app = builder.Build();
 
@@ -28,7 +31,7 @@ app.MapGet("/api/health", () =>
 {
     return Results.Ok(new
     {
-        status = "API do Blog Pessoal está funcionando",
+        status = "API funcionando",
         ambiente = app.Environment.EnvironmentName,
         data = DateTime.UtcNow
     });
