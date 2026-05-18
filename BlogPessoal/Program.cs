@@ -1,6 +1,7 @@
 using BlogPessoal.Config;
 using BlogPessoal.Data;
 using BlogPessoal.Repositories;
+using BlogPessoal.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<ITemaRepository, TemaRepository>();
+builder.Services.AddScoped<TemaService>();
 
 var app = builder.Build();
 
