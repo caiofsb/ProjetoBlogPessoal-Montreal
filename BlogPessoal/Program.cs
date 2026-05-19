@@ -2,6 +2,8 @@ using BlogPessoal.Config;
 using BlogPessoal.Data;
 using BlogPessoal.Repositories;
 using BlogPessoal.Services;
+using BlogPessoal.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,8 @@ builder.Services.AddScoped<ITemaRepository, TemaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<TemaService>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 
 var app = builder.Build();
 
