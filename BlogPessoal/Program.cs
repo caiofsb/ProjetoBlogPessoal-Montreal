@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ITemaRepository, TemaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IPostagemRepository, PostagemRepository>();
 
 builder.Services.AddScoped<TemaService>();
 builder.Services.AddScoped<UsuarioService>();
