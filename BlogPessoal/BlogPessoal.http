@@ -1,6 +1,85 @@
-@BlogPessoal_HostAddress = http://localhost:5127
+@BlogPessoal_HostAddress = https://localhost:7000
 
-GET {{BlogPessoal_HostAddress}}/weatherforecast/
+### Health check
+GET {{BlogPessoal_HostAddress}}/api/health
 Accept: application/json
 
-###
+
+### Swagger JSON
+GET {{BlogPessoal_HostAddress}}/swagger/v1/swagger.json
+Accept: application/json
+
+
+### Criar tema
+POST {{BlogPessoal_HostAddress}}/api/temas
+Content-Type: application/json
+
+{
+  "descricao": "Tecnologia"
+}
+
+
+### Listar temas
+GET {{BlogPessoal_HostAddress}}/api/temas
+Accept: application/json
+
+
+### Buscar tema por ID
+GET {{BlogPessoal_HostAddress}}/api/temas/1
+Accept: application/json
+
+
+### Criar usuário
+POST {{BlogPessoal_HostAddress}}/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Caio Felipe",
+  "usuarioNome": "caio",
+  "email": "caio.bindeiro@gmail.com",
+  "senha": "Senha123456",
+  "foto": "https://exemplo.com/foto.png",
+  "tipo": "NORMAL"
+}
+
+
+### Listar usuários
+GET {{BlogPessoal_HostAddress}}/api/usuarios
+Accept: application/json
+
+
+### Buscar usuário por ID
+GET {{BlogPessoal_HostAddress}}/api/usuarios/1
+Accept: application/json
+
+
+### Criar postagem
+POST {{BlogPessoal_HostAddress}}/api/postagens
+Content-Type: application/json
+
+{
+  "titulo": "Minha primeira postagem",
+  "texto": "Este é o texto da minha primeira postagem no blog pessoal usando ASP.NET Core.",
+  "usuarioId": 1,
+  "temaId": 1
+}
+
+
+### Listar postagens
+GET {{BlogPessoal_HostAddress}}/api/postagens
+Accept: application/json
+
+
+### Buscar postagem por ID
+GET {{BlogPessoal_HostAddress}}/api/postagens/1
+Accept: application/json
+
+
+### Buscar postagens por usuário
+GET {{BlogPessoal_HostAddress}}/api/postagens/usuario/1
+Accept: application/json
+
+
+### Buscar postagens por tema
+GET {{BlogPessoal_HostAddress}}/api/postagens/tema/1
+Accept: application/json
