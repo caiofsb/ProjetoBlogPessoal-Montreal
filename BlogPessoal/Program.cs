@@ -24,6 +24,7 @@ builder.Services.AddScoped<IPostagemRepository, PostagemRepository>();
 
 builder.Services.AddScoped<TemaService>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<PostagemService>();
 builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 
 var app = builder.Build();
