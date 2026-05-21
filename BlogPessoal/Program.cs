@@ -1,8 +1,8 @@
 using BlogPessoal.Config;
 using BlogPessoal.Data;
+using BlogPessoal.Models;
 using BlogPessoal.Repositories;
 using BlogPessoal.Services;
-using BlogPessoal.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddJwtConfiguration(builder.Configuration);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -33,6 +34,7 @@ app.UseSwaggerConfiguration();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

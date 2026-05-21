@@ -20,6 +20,15 @@ public static class SwaggerConfig
                     Name = "Caio Felipe"
                 }
             });
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Description = "Informe o token JWT no formato: Bearer {seu_token}",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
         });
 
         return services;
