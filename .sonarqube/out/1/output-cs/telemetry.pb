@@ -1,0 +1,1 @@
+QRDC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\BlogPessoal.Tests.csprojòCSharp14

@@ -1,0 +1,9 @@
+l
+aC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\obj\Debug\net10.0\BlogPessoal.Tests.GlobalUsings.g.csutf-8ß
+ÓC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\obj\Debug\net10.0\Microsoft.AspNetCore.OpenApi.SourceGenerators\Microsoft.AspNetCore.OpenApi.SourceGenerators.XmlCommentGenerator\OpenApiXmlCommentSupport.generated.csutf-8j
+_C:\Dev\BlogPessoalBackend\BlogPessoal.Tests\obj\Debug\net10.0\BlogPessoal.Tests.AssemblyInfo.csutf-8x
+mC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\obj\Debug\net10.0\.NETCoreApp,Version=v10.0.AssemblyAttributes.csutf-8w
+lC:\Users\santo\.nuget\packages\microsoft.net.test.sdk\17.14.1\build\net8.0\Microsoft.NET.Test.Sdk.Program.csutf-8K
+BC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\UsuarioServiceTests.csutf-8H
+?C:\Dev\BlogPessoalBackend\BlogPessoal.Tests\TemaServiceTests.csutf-8J
+AC:\Dev\BlogPessoalBackend\BlogPessoal.Tests\GeminiServiceTests.csutf-8
