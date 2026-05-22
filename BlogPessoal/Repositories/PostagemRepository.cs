@@ -67,6 +67,9 @@ public class PostagemRepository(AppDbContext context) : IPostagemRepository
         postagemExistente.Titulo = postagem.Titulo;
         postagemExistente.Texto = postagem.Texto;
         postagemExistente.TemaId = postagem.TemaId;
+        postagemExistente.ResumoIA = postagem.ResumoIA;
+        postagemExistente.TagsIA = postagem.TagsIA;
+        postagemExistente.CategoriaIA = postagem.CategoriaIA;
 
         await context.SaveChangesAsync();
 

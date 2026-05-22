@@ -1,10 +1,13 @@
 using BlogPessoal.DTOs;
 using BlogPessoal.Models;
 using BlogPessoal.Repositories;
+using BlogPessoal.Services.IA;
 
 namespace BlogPessoal.Services;
 
-public class PostagemService(IPostagemRepository repository)
+public class PostagemService(
+    IPostagemRepository repository,
+    IGeminiService geminiService)
 {
     public async Task<List<PostagemResponseDto>> ListarAsync()
     {
@@ -57,13 +60,18 @@ public class PostagemService(IPostagemRepository repository)
 
     public async Task<PostagemResponseDto> CriarAsync(PostagemCreateDto dto)
     {
+        var resultadoIA = await geminiService.GerarResumoAsync(dto.Texto);
+
         var postagem = new Postagem
         {
             Titulo = dto.Titulo.Trim(),
             Texto = dto.Texto.Trim(),
             UsuarioId = dto.UsuarioId,
             TemaId = dto.TemaId,
-            Data = DateTime.UtcNow
+            Data = DateTime.UtcNow,
+            ResumoIA = resultadoIA.Resumo,
+            TagsIA = resultadoIA.Tags,
+            CategoriaIA = resultadoIA.Categoria
         };
 
         var postagemCriada = await repository.CriarAsync(postagem);
@@ -78,12 +86,17 @@ public class PostagemService(IPostagemRepository repository)
             return null;
         }
 
+        var resultadoIA = await geminiService.GerarResumoAsync(dto.Texto);
+
         var postagem = new Postagem
         {
             Id = id,
             Titulo = dto.Titulo.Trim(),
             Texto = dto.Texto.Trim(),
-            TemaId = dto.TemaId
+            TemaId = dto.TemaId,
+            ResumoIA = resultadoIA.Resumo,
+            TagsIA = resultadoIA.Tags,
+            CategoriaIA = resultadoIA.Categoria
         };
 
         var postagemAtualizada = await repository.AtualizarAsync(postagem);

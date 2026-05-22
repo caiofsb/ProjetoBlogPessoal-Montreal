@@ -83,3 +83,11 @@ Accept: application/json
 ### Buscar postagens por tema
 GET {{BlogPessoal_HostAddress}}/api/postagens/tema/1
 Accept: application/json
+
+### Resumir texto com IA
+POST {{BlogPessoal_HostAddress}}/api/ia/resumir
+Content-Type: application/json
+
+{
+  "texto": "A tecnologia está mudando a forma como estudamos, trabalhamos e criamos soluções. A inteligência artificial ajuda a resumir textos, encontrar padrões e automatizar tarefas repetitivas."
+}
