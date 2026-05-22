@@ -1,9 +1,11 @@
 using BlogPessoal.DTOs;
 using BlogPessoal.Services.IA;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/ia")]
 public class IAController(IGeminiService geminiService) : ControllerBase

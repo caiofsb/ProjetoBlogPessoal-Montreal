@@ -1,5 +1,6 @@
 using BlogPessoal.DTOs;
 using BlogPessoal.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.Controllers;
@@ -29,6 +30,7 @@ public class TemasController(TemaService service) : ControllerBase
         return Ok(tema);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Criar([FromBody] TemaDto dto)
     {
@@ -37,6 +39,7 @@ public class TemasController(TemaService service) : ControllerBase
         return CreatedAtAction(nameof(BuscarPorId), new { id = tema.Id }, tema);
     }
 
+    [Authorize]
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Atualizar(long id, [FromBody] TemaDto dto)
     {
@@ -50,6 +53,7 @@ public class TemasController(TemaService service) : ControllerBase
         return Ok(tema);
     }
 
+    [Authorize(Roles = "ADMIN")]
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Deletar(long id)
     {

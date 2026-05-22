@@ -1,5 +1,6 @@
 using BlogPessoal.DTOs;
 using BlogPessoal.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.Controllers;
@@ -8,6 +9,7 @@ namespace BlogPessoal.Controllers;
 [Route("api/usuarios")]
 public class UsuariosController(UsuarioService service) : ControllerBase
 {
+    [Authorize(Roles = "ADMIN")]
     [HttpGet]
     public async Task<IActionResult> Listar()
     {
@@ -16,6 +18,7 @@ public class UsuariosController(UsuarioService service) : ControllerBase
         return Ok(usuarios);
     }
 
+    [Authorize]
     [HttpGet("{id:long}")]
     public async Task<IActionResult> BuscarPorId(long id)
     {
@@ -45,6 +48,7 @@ public class UsuariosController(UsuarioService service) : ControllerBase
         return CreatedAtAction(nameof(BuscarPorId), new { id = usuario.Id }, usuario);
     }
 
+    [Authorize]
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Atualizar(long id, [FromBody] UsuarioUpdateDto dto)
     {
@@ -58,6 +62,7 @@ public class UsuariosController(UsuarioService service) : ControllerBase
         return Ok(usuario);
     }
 
+    [Authorize(Roles = "ADMIN")]
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Deletar(long id)
     {

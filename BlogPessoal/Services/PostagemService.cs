@@ -58,7 +58,7 @@ public class PostagemService(
             .ToList();
     }
 
-    public async Task<PostagemResponseDto> CriarAsync(PostagemCreateDto dto)
+    public async Task<PostagemResponseDto> CriarAsync(PostagemCreateDto dto, long usuarioId)
     {
         var resultadoIA = await geminiService.GerarResumoAsync(dto.Texto);
 
@@ -66,7 +66,7 @@ public class PostagemService(
         {
             Titulo = dto.Titulo.Trim(),
             Texto = dto.Texto.Trim(),
-            UsuarioId = dto.UsuarioId,
+            UsuarioId = usuarioId,
             TemaId = dto.TemaId,
             Data = DateTime.UtcNow,
             ResumoIA = resultadoIA.Resumo,

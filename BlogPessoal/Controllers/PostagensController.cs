@@ -1,9 +1,12 @@
+using System.Security.Claims;
 using BlogPessoal.DTOs;
 using BlogPessoal.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/postagens")]
 public class PostagensController(PostagemService service) : ControllerBase
@@ -48,7 +51,17 @@ public class PostagensController(PostagemService service) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Criar([FromBody] PostagemCreateDto dto)
     {
-        var postagem = await service.CriarAsync(dto);
+        var usuarioIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (!long.TryParse(usuarioIdClaim, out var usuarioId))
+        {
+            return Unauthorized(new
+            {
+                mensagem = "Token inválido ou usuário não identificado."
+            });
+        }
+
+        var postagem = await service.CriarAsync(dto, usuarioId);
 
         return CreatedAtAction(nameof(BuscarPorId), new { id = postagem.Id }, postagem);
     }
