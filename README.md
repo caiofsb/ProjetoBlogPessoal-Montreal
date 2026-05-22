@@ -1,6 +1,6 @@
-# Blog Pessoal Backend
+# API de Blog Pessoal
 
-API RESTful desenvolvida com ASP.NET Core, Entity Framework Core e PostgreSQL para gerenciamento de usuários, temas e postagens.
+API RESTful  foi desenvolvida com ASP.NET Core, Entity Framework Core e PostgreSQL para gerenciamento de usuários, temas e postagens.
 
 ## Tecnologias
 
