@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("api/postagens")]
 public class PostagensController(PostagemService service) : ControllerBase
@@ -49,6 +48,7 @@ public class PostagensController(PostagemService service) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Criar([FromBody] PostagemCreateDto dto)
     {
         var usuarioIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -67,6 +67,7 @@ public class PostagensController(PostagemService service) : ControllerBase
     }
 
     [HttpPut("{id:long}")]
+    [Authorize]
     public async Task<IActionResult> Atualizar(long id, [FromBody] PostagemUpdateDto dto)
     {
         var postagem = await service.AtualizarAsync(id, dto);
@@ -80,6 +81,7 @@ public class PostagensController(PostagemService service) : ControllerBase
     }
 
     [HttpDelete("{id:long}")]
+    [Authorize]
     public async Task<IActionResult> Deletar(long id)
     {
         var deletado = await service.DeletarAsync(id);

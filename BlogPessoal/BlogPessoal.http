@@ -1,6 +1,6 @@
-@BlogPessoal_HostAddress = https://localhost:7000
+@BlogPessoal_HostAddress = https://localhost:5127
 
-### Health check
+### Health check publico
 GET {{BlogPessoal_HostAddress}}/api/health
 Accept: application/json
 
@@ -10,84 +10,157 @@ GET {{BlogPessoal_HostAddress}}/swagger/v1/swagger.json
 Accept: application/json
 
 
-### Criar tema
-POST {{BlogPessoal_HostAddress}}/api/temas
-Content-Type: application/json
-
-{
-  "descricao": "Tecnologia"
-}
-
-
-### Listar temas
-GET {{BlogPessoal_HostAddress}}/api/temas
-Accept: application/json
-
-
-### Buscar tema por ID
-GET {{BlogPessoal_HostAddress}}/api/temas/1
-Accept: application/json
-
-
-### Criar usuário
+### Criar usuario ADMIN sem token
 POST {{BlogPessoal_HostAddress}}/api/usuarios
 Content-Type: application/json
 
 {
-  "nome": "Caio Felipe",
-  "usuarioNome": "caio",
-  "email": "caio.bindeiro@gmail.com",
+  "nome": "Admin Blog",
+  "usuarioNome": "admin",
+  "email": "admin@blogpessoal.com",
+  "senha": "Senha123456",
+  "foto": "https://exemplo.com/admin.png",
+  "tipo": "ADMIN"
+}
+
+
+### Login ADMIN
+# @name loginAdmin
+POST {{BlogPessoal_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@blogpessoal.com",
+  "senha": "Senha123456"
+}
+
+
+### Criar usuario NORMAL sem token
+POST {{BlogPessoal_HostAddress}}/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Usuario Normal",
+  "usuarioNome": "normal",
+  "email": "normal@blogpessoal.com",
   "senha": "Senha123456",
   "foto": "https://exemplo.com/foto.png",
   "tipo": "NORMAL"
 }
 
 
-### Listar usuários
+### Login NORMAL
+# @name loginNormal
+POST {{BlogPessoal_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "normal@blogpessoal.com",
+  "senha": "Senha123456"
+}
+
+
+### Criar tema com token ADMIN
+POST {{BlogPessoal_HostAddress}}/api/temas
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.$.token}}
+
+{
+  "descricao": "Tecnologia"
+}
+
+
+### Criar tema com token NORMAL deve retornar 403
+POST {{BlogPessoal_HostAddress}}/api/temas
+Content-Type: application/json
+Authorization: Bearer {{loginNormal.response.body.$.token}}
+
+{
+  "descricao": "Tema bloqueado"
+}
+
+
+### Listar temas sem token
+GET {{BlogPessoal_HostAddress}}/api/temas
+Accept: application/json
+
+
+### Buscar tema por ID sem token
+GET {{BlogPessoal_HostAddress}}/api/temas/1
+Accept: application/json
+
+
+### Listar usuarios com token ADMIN
+GET {{BlogPessoal_HostAddress}}/api/usuarios
+Accept: application/json
+Authorization: Bearer {{loginAdmin.response.body.$.token}}
+
+
+### Listar usuarios sem token deve retornar 401
 GET {{BlogPessoal_HostAddress}}/api/usuarios
 Accept: application/json
 
 
-### Buscar usuário por ID
+### Listar usuarios com token NORMAL deve retornar 403
+GET {{BlogPessoal_HostAddress}}/api/usuarios
+Accept: application/json
+Authorization: Bearer {{loginNormal.response.body.$.token}}
+
+
+### Buscar usuario por ID com token
 GET {{BlogPessoal_HostAddress}}/api/usuarios/1
 Accept: application/json
+Authorization: Bearer {{loginAdmin.response.body.$.token}}
 
 
-### Criar postagem
+### Criar postagem sem token deve retornar 401
 POST {{BlogPessoal_HostAddress}}/api/postagens
 Content-Type: application/json
 
 {
-  "titulo": "Minha primeira postagem",
-  "texto": "Este é o texto da minha primeira postagem no blog pessoal usando ASP.NET Core.",
-  "usuarioId": 1,
+  "titulo": "Postagem sem token",
+  "texto": "Este texto deve ser recusado porque a rota exige autenticacao.",
   "temaId": 1
 }
 
 
-### Listar postagens
+### Criar postagem com token usando usuario do token
+POST {{BlogPessoal_HostAddress}}/api/postagens
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.$.token}}
+
+{
+  "titulo": "Minha primeira postagem",
+  "texto": "Este e o texto da minha primeira postagem no blog pessoal usando ASP.NET Core.",
+  "temaId": 1
+}
+
+
+### Listar postagens sem token
 GET {{BlogPessoal_HostAddress}}/api/postagens
 Accept: application/json
 
 
-### Buscar postagem por ID
+### Buscar postagem por ID sem token
 GET {{BlogPessoal_HostAddress}}/api/postagens/1
 Accept: application/json
 
 
-### Buscar postagens por usuário
+### Buscar postagens por usuario sem token
 GET {{BlogPessoal_HostAddress}}/api/postagens/usuario/1
 Accept: application/json
 
 
-### Buscar postagens por tema
+### Buscar postagens por tema sem token
 GET {{BlogPessoal_HostAddress}}/api/postagens/tema/1
 Accept: application/json
 
-### Resumir texto com IA
+
+### Resumir texto com IA usando token
 POST {{BlogPessoal_HostAddress}}/api/ia/resumir
 Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.$.token}}
 
 {
-  "texto": "A tecnologia está mudando a forma como estudamos, trabalhamos e criamos soluções. A inteligência artificial ajuda a resumir textos, encontrar padrões e automatizar tarefas repetitivas."
+  "texto": "A tecnologia esta mudando a forma como estudamos, trabalhamos e criamos solucoes. A inteligencia artificial ajuda a resumir textos, encontrar padroes e automatizar tarefas repetitivas."
 }

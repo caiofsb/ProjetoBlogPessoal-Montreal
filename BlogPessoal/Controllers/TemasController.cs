@@ -30,7 +30,7 @@ public class TemasController(TemaService service) : ControllerBase
         return Ok(tema);
     }
 
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     [HttpPost]
     public async Task<IActionResult> Criar([FromBody] TemaDto dto)
     {
@@ -39,7 +39,7 @@ public class TemasController(TemaService service) : ControllerBase
         return CreatedAtAction(nameof(BuscarPorId), new { id = tema.Id }, tema);
     }
 
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Atualizar(long id, [FromBody] TemaDto dto)
     {
